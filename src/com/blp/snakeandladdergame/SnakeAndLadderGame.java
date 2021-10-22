@@ -2,57 +2,80 @@ package com.blp.snakeandladdergame;
 
 public class SnakeAndLadderGame
 {
-    static int position = 0;
-    public static final int SAME_POSITION = 0;
-    public static final int LADDER = 1;
-    public static final int SNAKE = 2;
+    private static int position ;
+    private static final int NO_PLAY_POSITION = 0;
+    private static final int LADDER = 1;
+    private static final int SNAKE = 2;
+    private static int counter ;
 
     public static void main(String[] args)
     {
         System.out.println("Starting position of the player = " + position);
 
-        int counter = 0;
+        SnakeAndLadderGame game = new SnakeAndLadderGame ();
+        game.startGame();
+    }
+    private void startGame() {
+        counter = 0; position = 0;
 
         while (position < 100)
         {
-            int dice = (int) (Math.floor(Math.random()*10) %6+1);
-
-            counter++;
-
-            int check = (int) ((Math.random() * 10) % 3);
+            int dice = rollDice();
+            int check = positionLadderSnake();
             switch (check)
             {
-                case SAME_POSITION -> {
-                    System.out.println("Player got same position");
-                    break;
-                }
+                case NO_PLAY_POSITION ->
+                        {
+                            System.out.println("Player got same position");
+                        }
                 case LADDER ->
                         {
-                        position = position + dice;
-                        System.out.println("Player got ladder and Position of the player = " + position);
-                        break;
+                            position = position + dice;
+                            System.out.println("Player got ladder and position is = " + position);
                         }
                 case SNAKE ->
                         {
-                        position = position - dice;
-
-                        if (position < 0)
-                            {
-                            position = 0;
-                            System.out.println("Player got snake and Position of the player = " + position);
-                            }
+                            position = position - dice;
+                            if (position < 0)
+                                {
+                                    position = 0;
+                                    System.out.println("Player got snake and position is = " + position);
+                                }
                         }
             }
+
             if ( position > 100 )
             {
                 position = position - dice;
-                System.out.println("Player on the same position = " +position);
+                System.out.println("Player on the same position = " + position);
             }
             if ( position == 100 )
             {
-                System.out.println("Player won the game");
+                checkWinner();
             }
         }
-        System.out.println("Count of rolling dice = " +counter);
+        System.out.println("Count of rolling dice = " + counter);
+    }
+    private int rollDice()
+    {
+        counter++;
+        return (int) (Math.floor(Math.random() * 10) % 6 + 1);
+    }
+
+    private int positionLadderSnake()
+    {
+        return (int) ((Math.random() * 10) % 3);
+    }
+
+    private void checkWinner()
+    {
+        if ( counter % 2 == 0 )
+        {
+            System.out.println("Player 2 won the game");
+        }
+        else
+        {
+            System.out.println("Player 1 won the game");
+        }
     }
 }
