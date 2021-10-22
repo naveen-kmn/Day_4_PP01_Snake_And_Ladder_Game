@@ -40,6 +40,10 @@ public class SnakeAndLadderGame
                 position = position - dice;
                 System.out.println("Player on the same position = " +position);
             }
+            if ( position == 100 )
+            {
+                System.out.println("Player won the game");
+            }
         }
     }
 }
