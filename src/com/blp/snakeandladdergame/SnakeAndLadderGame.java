@@ -11,18 +11,26 @@ public class SnakeAndLadderGame
     {
         System.out.println("Starting position of the player = " + position);
 
+        int counter = 0;
+
         while (position < 100)
         {
             int dice = (int) (Math.floor(Math.random()*10) %6+1);
 
+            counter++;
+
             int check = (int) ((Math.random() * 10) % 3);
             switch (check)
             {
-                case SAME_POSITION -> System.out.println("Player got same position");
+                case SAME_POSITION -> {
+                    System.out.println("Player got same position");
+                    break;
+                }
                 case LADDER ->
                         {
                         position = position + dice;
                         System.out.println("Player got ladder and Position of the player = " + position);
+                        break;
                         }
                 case SNAKE ->
                         {
@@ -45,5 +53,6 @@ public class SnakeAndLadderGame
                 System.out.println("Player won the game");
             }
         }
+        System.out.println("Count of rolling dice = " +counter);
     }
 }
